@@ -26,6 +26,10 @@ Route::get('/', function () {
 |
 */
 
+Route::get('admin', function(){
+	return view('__adminlte.template.index');
+});
+
 Route::group(['middleware' => ['web']], function () {
     //
 });

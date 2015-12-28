@@ -9,7 +9,9 @@
         "laravel/framework": "5.2.*",
         "laravelcollective/html": "5.2.*",
         "intervention/image": "^2.3",
-        "pingpong/modules": "~2.1"
+        "league/html-to-markdown": "^4.1",
+        "league/commonmark": "^0.12.0",
+        "creativeorange/gravatar": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
