@@ -26,8 +26,17 @@ Route::get('/', function () {
 |
 */
 
-Route::get('admin', function(){
-	return view('__adminlte.template.index');
+
+
+
+Route::group(['prefix' => 'template'], function () {
+	Route::get('dashboard', function(){
+		return view('__adminlte.pages.dashboard');
+	});
+	Route::get('dashboard1', function(){
+		return view('__adminlte.pages.dashboard1');
+	});
+	
 });
 
 Route::group(['middleware' => ['web']], function () {
