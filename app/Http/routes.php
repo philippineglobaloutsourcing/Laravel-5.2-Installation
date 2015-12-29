@@ -29,14 +29,28 @@ Route::get('/', function () {
 
 
 
-Route::group(['prefix' => 'template'], function () {
+Route::group(['prefix' => 'templates'], function () {
+	Route::get('/', function(){
+		return view('__adminlte.pages.dashboard');
+	});
 	Route::get('dashboard', function(){
 		return view('__adminlte.pages.dashboard');
 	});
 	Route::get('dashboard1', function(){
 		return view('__adminlte.pages.dashboard1');
 	});
-	
+	Route::get('widgets', function(){
+		return view('__adminlte.pages.widgets');
+	});
+});
+
+Route::group(['prefix' => 'templates/charts'], function () {
+	Route::get('/', function(){
+		return view('__adminlte.pages.charts.chartjs');
+	});
+	Route::get('chartjs', function(){
+		return view('__adminlte.pages.charts.chartjs');
+	});
 });
 
 Route::group(['middleware' => ['web']], function () {
