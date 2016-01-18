@@ -156,6 +156,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Collective\Html\HtmlServiceProvider::class,
+        // Pingpong\Modules\ModulesServiceProvider::class,
+        // Pingpong\Generators\GeneratorsServiceProvider,
+
         // Caffeinated\Modules\ModulesServiceProvider::class,
 
     ],
@@ -205,6 +209,11 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
 
         // 'Module'     => Caffeinated\Modules\Facades\Module::class,
+
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+
+        // 'Module' => Pingpong\Modules\Facades\Module::class,
 
     ],
 

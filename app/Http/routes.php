@@ -1,35 +1,16 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Routes File
-|--------------------------------------------------------------------------
-|
-| Here is where you will register all of the routes in an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| This route group applies the "web" middleware group to every route
-| it contains. The "web" middleware group is defined in your HTTP
-| kernel and includes session state, CSRF protection, and more.
-|
-*/
+/**
+ * @author Christopher John Cubos
+ * @package routes
+ */
 
 
+Route::get('dashboard', function(){
+	return view('__adminlte.demos.dashboard');
+})->middleware('auth');
 
-
-Route::group(['prefix' => 'templates'], function () {
+Route::group(['middleware' => 'auth', 'prefix' => 'templates'], function () {
 	Route::get('/', function(){
 		return view('__adminlte.demos.dashboard');
 	});
@@ -42,9 +23,16 @@ Route::group(['prefix' => 'templates'], function () {
 	Route::get('widgets', function(){
 		return view('__adminlte.demos.widgets');
 	});
+	Route::get('calendar', function(){
+		return view('__adminlte.demos.calendar');
+	});
+	Route::get('documentation', function(){
+		$side_menu="demo_documentation";
+		return view('__adminlte.demos.documentation', compact('side_menu'));
+	});
 });
 
-Route::group(['prefix' => 'templates/charts'], function () {
+Route::group(['middleware' => 'auth', 'prefix' => 'templates/charts'], function () {
 	Route::get('/', function(){
 		return view('__adminlte.demos.charts.chartjs');
 	});
@@ -62,7 +50,7 @@ Route::group(['prefix' => 'templates/charts'], function () {
 	});
 });
 
-Route::group(['prefix' => 'templates/ui'], function () {
+Route::group(['middleware' => 'auth', 'prefix' => 'templates/ui'], function () {
 	Route::get('/', function(){
 		return view('__adminlte.demos.ui.general');
 	});
@@ -90,7 +78,7 @@ Route::group(['prefix' => 'templates/ui'], function () {
 });
 
 
-Route::group(['prefix' => 'templates/forms'], function () {
+Route::group(['middleware' => 'auth', 'prefix' => 'templates/forms'], function () {
 	Route::get('/', function(){
 		return view('__adminlte.demos.forms.general');
 	});
@@ -105,7 +93,7 @@ Route::group(['prefix' => 'templates/forms'], function () {
 	});
 });
 
-Route::group(['prefix' => 'templates/tables'], function () {
+Route::group(['middleware' => 'auth', 'prefix' => 'templates/tables'], function () {
 	Route::get('/', function(){
 		return view('__adminlte.demos.tables.simple');
 	});
@@ -114,6 +102,51 @@ Route::group(['prefix' => 'templates/tables'], function () {
 	});
 	Route::get('data', function(){
 		return view('__adminlte.demos.tables.data');
+	});
+});
+
+Route::group(['middleware' => 'auth', 'prefix' => 'templates/mailbox'], function () {
+	Route::get('/', function(){
+		return view('__adminlte.demos.mailbox.mailbox');
+	});
+	Route::get('mailbox', function(){
+		return view('__adminlte.demos.mailbox.mailbox');
+	});
+	Route::get('compose', function(){
+		return view('__adminlte.demos.mailbox.compose');
+	});
+});
+
+Route::group(['middleware' => 'auth', 'prefix' => 'templates/examples'], function () {
+	Route::get('/', function(){
+		return view('__adminlte.demos.examples.invoice');
+	});
+	Route::get('invoice', function(){
+		return view('__adminlte.demos.examples.invoice');
+	});
+	Route::get('invoice/print', function(){
+		return view('__adminlte.demos.raw.invoice_print');
+	});
+	Route::get('profile', function(){
+		return view('__adminlte.demos.examples.profile');
+	});
+	Route::get('404', function(){
+		return view('__adminlte.demos.examples.404');
+	});
+	Route::get('500', function(){
+		return view('__adminlte.demos.examples.500');
+	});
+	Route::get('blank', function(){
+		return view('__adminlte.demos.examples.blank');
+	});
+	Route::get('pace', function(){
+		return view('__adminlte.demos.examples.pace');
+	});
+	Route::get('login', function(){
+		return view('__adminlte.demos.raw.login');
+	});
+	Route::get('register', function(){
+		return view('__adminlte.demos.raw.register');
 	});
 });
 
@@ -127,10 +160,11 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('/home', 'HomeController@index');
-});
 
-Route::group(['middleware' => 'web'], function () {
-    Route::auth();
+	Route::get('/', function(){
+		Route::auth();
+		return view('welcome');
+	});
 
-    Route::get('/home', 'HomeController@index');
+
 });
